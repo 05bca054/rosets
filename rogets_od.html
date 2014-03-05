@@ -16,7 +16,7 @@
 			line-height:20px;
 		}
     </style>
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery.js"></script>
 	<script type="text/javascript" src="ajax-file-upload/js/jquery.form.min.js"></script>
 	<link href="ajax-file-upload/style/style.css" rel="stylesheet" type="text/css">
   </head>
@@ -34,7 +34,7 @@
 	<div style="margin:20% 20%; display:inline-block; width:100%;">
 		<div id="container"></div>
 	</div>
-    
+
     <script src="js/kinaticjs.js"></script>
     <script src="js/layers.js"></script>
     <script src="js/colorpicker.js"></script>
@@ -42,7 +42,101 @@
     <script src="js/objects/innertriangle.js"></script>
     <script src="js/objects/text.js"></script>
     <script src="js/events.js"></script>
-    
+	
+	<script>
+    	jQuery( document ).ready(function( $ ) {
+    	  // Code using $ as usual goes here.
+    	  //alert('NAitik');
+    		$.ajax({
+				type: "POST",
+				url: "gen_image.php",
+				//data: { color: hex,id: layer_id},				
+			})
+			.done(function( msg ) {				
+				try {
+				//	alert("asdasd");
+					var imageObj1 = new Image();
+					imageObj1.src = "edited/first.jpeg";
+					imageObj1.onload = function() {						
+						var circle = new Kinetic.Circle({
+							x: width,
+							y: test,
+							radius: 257,
+							fillPatternImage: imageObj1,
+							fillPatternOffsetX:255,
+							fillPatternOffsetY:255,
+							draggable:true,
+						});
+						
+						//remove backword image circle to overright with JPEG image
+						layer.removeChildren();
+						//Add circle containing JPEG image
+						layer.add(circle);
+					
+						//colorpicker.removeChildren();
+						//colorpicker.draw();
+						//redraw circle layer						
+						layer.draw();
+					}
+					var imageObj2 = new Image();
+					imageObj2.src = "edited/second.jpeg";
+					imageObj2.onload = function() {						
+							var circle = new Kinetic.Circle({
+								x: width,
+								y: test,
+								radius: 178,
+								fillPatternImage: imageObj2,
+								fillPatternOffsetX:178,
+								fillPatternOffsetY:178,
+								draggable:true,
+							});
+							
+							//remove backword image circle to overright with JPEG image
+							middlecircle.removeChildren();
+							//Add circle containing JPEG image
+							middlecircle.add(circle);
+							
+							//colorpicker.removeChildren();
+							//colorpicker.draw();
+							//redraw circle layer
+							middlecircle.draw();
+					
+						}
+					
+					var imageObj3 = new Image();
+					imageObj3.src = "edited/third.jpeg";
+					imageObj3.onload = function() {						
+						var circle = new Kinetic.Circle({
+							x: width,
+							y: test,
+							radius: 123,
+							fillPatternImage: imageObj3,
+							fillPatternOffsetX:132,
+							fillPatternOffsetY:132,
+							draggable:true,
+						});
+						
+						//remove backword image circle to overright with JPEG image
+						innercircle.removeChildren();
+						//Add circle containing JPEG image
+						innercircle.add(circle);
+						
+						//colorpicker.removeChildren();
+						//colorpicker.draw();
+						//redraw circle layer						
+						innercircle.draw();
+						
+					}
+					alert("asdasd");
+					
+				} catch(err) {
+				  console.log(err);
+				  console.trace();
+				}
+		
+			});
+    	});
+    </script>     
     <button id="gen_img">Generate Image</button>
     <div id="upload-wrapper">
 		<div align="center">
